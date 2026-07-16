@@ -85,7 +85,7 @@ pub const VariationAxis = struct {
             const min_value = try s.read(parser.Fixed);
             const def_value = try s.read(parser.Fixed);
             const max_value = try s.read(parser.Fixed);
-            const flags = try s.read(packed struct(u16) { _0: u3 = 0, hidden: bool, _1: u12 = 0 });
+            const flags = try s.read(packed struct(u16) { hidden: bool, _1: u15 = 0 });
             const name_id = try s.read(u16);
 
             return .{
