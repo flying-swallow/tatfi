@@ -29,12 +29,12 @@ pub fn parse(
 
     var s = parser.Stream.new(data);
     s.skip(u32); // version
-    s.skip(i32); // font revision // should be parser.Fixed
+    s.skip(parser.Fixed); // font revision
     s.skip(u32); // checksum adjustment
     s.skip(u32); // magic number
     s.skip(u16); // flags
     const units_per_em = try s.read(u16);
-    if (units_per_em < 16 or units_per_em > 16248) return error.ParseFail;
+    if (units_per_em < 16 or units_per_em > 16348) return error.ParseFail;
 
     s.skip(u64); // created time
     s.skip(u64); // modified time
