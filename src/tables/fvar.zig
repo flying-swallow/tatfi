@@ -67,8 +67,7 @@ pub const VariationAxis = struct {
     min_value: f32,
     def_value: f32,
     max_value: f32,
-    /// An axis name in the `name` table.
-    name_id: u16,
+    name_id: name.NameId,
     hidden: bool,
 
     const Self = @This();
@@ -86,7 +85,7 @@ pub const VariationAxis = struct {
             const def_value = try s.read(parser.Fixed);
             const max_value = try s.read(parser.Fixed);
             const flags = try s.read(packed struct(u16) { hidden: bool, _1: u15 = 0 });
-            const name_id = try s.read(u16);
+            const name_id = try s.read(name.NameId);
 
             return .{
                 .tag = tag,
