@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Fixed `VariationAxis.hidden` flag location. See `ttf-parser` PR: https://github.com/harfbuzz/ttf-parser/pull/216
+- Fixed `VariationAxis.name_id` from using `u16` to `NameId` to be more concsitent with the rest of the library.
+
 ## 0.1.3 - 2026-04-16
 
 Turns out 0.16.0 is just a one line change.
