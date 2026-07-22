@@ -8,9 +8,9 @@ const parser = @import("../parser.zig");
 /// An [Index to Location Table](https://docs.microsoft.com/en-us/typography/opentype/spec/loca).
 pub const Table = union(enum) {
     /// Short offsets.
-    short: parser.LazyArray16(u16),
+    short: parser.LazyArray32(u16),
     /// Long offsets.
-    long: parser.LazyArray16(u32),
+    long: parser.LazyArray32(u32),
 
     /// Parses a table from raw data.
     ///
@@ -22,9 +22,7 @@ pub const Table = union(enum) {
         data: []const u8,
     ) parser.Error!Table {
         // The number of ranges is `maxp.numGlyphs + 1`.
-        //
-        // [ARs] Consider overflow first.
-        var total = number_of_glyphs +| 1;
+        var total: u32 = number_of_glyphs + 1;
 
         // By the spec, the number of `loca` offsets is `maxp.numGlyphs + 1`.
         // But some malformed fonts can have less glyphs than that.
@@ -33,10 +31,10 @@ pub const Table = union(enum) {
         // would go beyond table's length.
         //
         // In case when `loca` has more data than needed we simply ignore the rest.
-        const actual_total = std.math.cast(u16, switch (format) {
+        const actual_total: u32 = @truncate(switch (format) {
             .short => data.len / 2,
             .long => data.len / 4,
-        }) orelse return error.ParseFail;
+        });
 
         total = @min(actual_total, total);
         var s = parser.Stream.new(data);
@@ -48,9 +46,9 @@ pub const Table = union(enum) {
     }
 
     /// Returns the number of offsets.
-    pub fn len(
+    fn len(
         self: Table,
-    ) u16 {
+    ) u32 {
         return switch (self) {
             inline else => |array| array.len(),
         };
@@ -61,8 +59,8 @@ pub const Table = union(enum) {
         self: Table,
         glyph_id: lib.GlyphId,
     ) ?struct { usize, usize } {
-        const id = glyph_id[0];
-        if (id == std.math.maxInt(u16)) return null;
+        // [ARS] id max value is std.math.maxInt(u16).
+        const id: u32 = glyph_id[0];
 
         // Glyph ID must be smaller than total number of values in a `loca` array.
         if (id + 1 >= self.len()) return null;

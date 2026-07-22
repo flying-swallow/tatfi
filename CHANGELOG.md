@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Fixed `VariationAxis.hidden` flag location. See `ttf-parser` PR: https://github.com/harfbuzz/ttf-parser/pull/216
 - Fixed `VariationAxis.name_id` from using `u16` to `NameId` to be more concsitent with the rest of the library.
 - Fixed typo in `head` table `units_per_em` boundary.
+- Patched font not being outlined if it has 65563 glyphs: https://github.com/harfbuzz/ttf-parser/issues/213#issuecomment-4629493102
 
 ## 0.1.3 - 2026-04-16
 
@@ -14,22 +15,22 @@ Turns out 0.16.0 is just a one line change.
 
 ## 0.1.2 - 2026-03-27
 
-Last update before Zig 0.16 
+Last update before Zig 0.16
 
 ### Fixed
 
 - Expose `SequenceRule` and `ChainedSequenceRule` and added missing `parse` methods that were not checked before. Damn you lazy compilation
 - Adjust `class_needle` paramter in `aat.ExtendedStateTable` to `u16` instead of `u8`. It doesn't really matter but it aligns better with `ttf-parser` API.
 
-### Added 
+### Added
 
 - Added default value for `ankr.Point`
-- Added predefined_state in `apple_layout` 
+- Added predefined_state in `apple_layout`
 - Expose `LookupFlags` and added default init.
 - Expose `Feature`
 - `find_substitute` public method for `FeatureVariations`.
 - `find_index` public method for `FeatureVariations`.
-- Expose `Ligature` 
+- Expose `Ligature`
 - Expose the generic paramter of `LookupTable`s.
 
 ## 0.1.1 - 2026-02-02
