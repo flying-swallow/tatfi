@@ -9,5 +9,38 @@
 				},
 			},
 		},
+		"JavaScript": {
+			"language_servers": [
+				"deno",
+				"!typescript-language-server",
+				"!vtsls",
+				"!eslint",
+			],
+		},
+		"TypeScript": {
+			"language_servers": [
+				"deno",
+				"!typescript-language-server",
+				"!vtsls",
+				"!eslint",
+			],
+		},
+		"TSX": {
+			"language_servers": [
+				"deno",
+				"!typescript-language-server",
+				"!vtsls",
+				"!eslint",
+			],
+		},
+	},
+	"lsp": {
+		"deno": {
+			"settings": {
+				"deno": {
+					"enable": true,
+				},
+			},
+		},
 	},
 }
