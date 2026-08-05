@@ -14,9 +14,11 @@ Almost the entire Rust ecosystem depends on [`ttf_parser`](https://docs.rs/ttf-p
 
 ## Status
 
-`tatfi` is pretty much complete as a port. It is possible to build a rasterizer or a shaper on top of `tatfi`, especially now many of the bugs were fixed. Future work of this library will be mostly keeping up with Zig releaes and bug fixes.
+`tatfi` is pretty much complete as a port. It is possible to build a rasterizer or a shaper on top of `tatfi`. Future work of this library will be mostly keeping up with Zig releaes.
 
-All `ttf_parser` tests are ported. Note that even sp, the crate depended on `rustybuzz` (and from there, the `HarfBuzz` test suite), for testing. Without actual real use of this library it is not possible to test exhaustively.
+Many `ttf_parser` tests are ported (used to be all before a recent change in maintainership). Even so, the crate depended on `rustybuzz` (and from there, the `HarfBuzz` test suite), for testing. Without actual real use of this library it is not possible to test exhaustively.
+
+As of Aug 6th, 2026, I do not plan on backporting bugfixes and tests from `ttf-parser` any more. The new maintainers are seemingly very active with long walls of text. If you find any bugs in real usage, please send them my way with a test case.
 
 You can see the API surface on `main.zig`. If you'd like to help, please see any of the following topics.
 
