@@ -68,263 +68,347 @@ test "non_default_header_size" {
 }
 
 test "move to" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 Z ", rect(10, 20, 10, 20));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 Z ",
+        rect(10, 20, 10, 20),
+    );
 }
 
 test "move_to_with_width" {
-    try test_cs(&.{
-        .{ .cff_int = 5 },
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 Z ", rect(10, 20, 10, 20));
+    try test_cs(
+        &.{
+            .{ .cff_int = 5 },
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 Z ",
+        rect(10, 20, 10, 20),
+    );
 }
 
 test "hmove_to" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .unt8 = operator.HORIZONTAL_MOVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 0 Z ", rect(10, 0, 10, 0));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .unt8 = operator.HORIZONTAL_MOVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 0 Z ",
+        rect(10, 0, 10, 0),
+    );
 }
 
 test "hmove_to_with_width" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.HORIZONTAL_MOVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 20 0 Z ", rect(20, 0, 20, 0));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.HORIZONTAL_MOVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 20 0 Z ",
+        rect(20, 0, 20, 0),
+    );
 }
 
 test "vmove_to" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .unt8 = operator.VERTICAL_MOVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 0 10 Z ", rect(0, 10, 0, 10));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .unt8 = operator.VERTICAL_MOVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 0 10 Z ",
+        rect(0, 10, 0, 10),
+    );
 }
 
 test "vmove_to_with_width" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.VERTICAL_MOVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 0 20 Z ", rect(0, 20, 0, 20));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.VERTICAL_MOVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 0 20 Z ",
+        rect(0, 20, 0, 20),
+    );
 }
 
 // Use only the first width.
 test "two_vmove_to_with_width" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.VERTICAL_MOVE_TO },
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.VERTICAL_MOVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 0 20 Z M 0 40 Z ", rect(0, 20, 0, 40));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.VERTICAL_MOVE_TO },
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.VERTICAL_MOVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 0 20 Z M 0 40 Z ",
+        rect(0, 20, 0, 40),
+    );
 }
 
 test "line_to" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .unt8 = operator.LINE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 L 40 60 Z ", rect(10, 20, 40, 60));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .unt8 = operator.LINE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 L 40 60 Z ",
+        rect(10, 20, 40, 60),
+    );
 }
 
 test "line_to_with_multiple_pairs" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .cff_int = 50 },
-        .{ .cff_int = 60 },
-        .{ .unt8 = operator.LINE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 L 40 60 L 90 120 Z ", rect(10, 20, 90, 120));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .cff_int = 50 },
+            .{ .cff_int = 60 },
+            .{ .unt8 = operator.LINE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 L 40 60 L 90 120 Z ",
+        rect(10, 20, 90, 120),
+    );
 }
 
 test "hline_to" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .unt8 = operator.HORIZONTAL_LINE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 L 40 20 Z ", rect(10, 20, 40, 20));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .unt8 = operator.HORIZONTAL_LINE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 L 40 20 Z ",
+        rect(10, 20, 40, 20),
+    );
 }
 
 test "hline_to_with_two_coords" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .unt8 = operator.HORIZONTAL_LINE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 L 40 20 L 40 60 Z ", rect(10, 20, 40, 60));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .unt8 = operator.HORIZONTAL_LINE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 L 40 20 L 40 60 Z ",
+        rect(10, 20, 40, 60),
+    );
 }
 
 test "hline_to_with_three_coords" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .cff_int = 50 },
-        .{ .unt8 = operator.HORIZONTAL_LINE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 L 40 20 L 40 60 L 90 60 Z ", rect(10, 20, 90, 60));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .cff_int = 50 },
+            .{ .unt8 = operator.HORIZONTAL_LINE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 L 40 20 L 40 60 L 90 60 Z ",
+        rect(10, 20, 90, 60),
+    );
 }
 
 test "vline_to" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .unt8 = operator.VERTICAL_LINE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 L 10 50 Z ", rect(10, 20, 10, 50));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .unt8 = operator.VERTICAL_LINE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 L 10 50 Z ",
+        rect(10, 20, 10, 50),
+    );
 }
 
 test "vline_to_with_two_coords" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .unt8 = operator.VERTICAL_LINE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 L 10 50 L 50 50 Z ", rect(10, 20, 50, 50));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .unt8 = operator.VERTICAL_LINE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 L 10 50 L 50 50 Z ",
+        rect(10, 20, 50, 50),
+    );
 }
 
 test "vline_to_with_three_coords" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .cff_int = 50 },
-        .{ .unt8 = operator.VERTICAL_LINE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 L 10 50 L 50 50 L 50 100 Z ", rect(10, 20, 50, 100));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .cff_int = 50 },
+            .{ .unt8 = operator.VERTICAL_LINE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 L 10 50 L 50 50 L 50 100 Z ",
+        rect(10, 20, 50, 100),
+    );
 }
 
 test "curve_to" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .cff_int = 50 },
-        .{ .cff_int = 60 },
-        .{ .cff_int = 70 },
-        .{ .cff_int = 80 },
-        .{ .unt8 = operator.CURVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 C 40 60 90 120 160 200 Z ", rect(10, 20, 160, 200));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .cff_int = 50 },
+            .{ .cff_int = 60 },
+            .{ .cff_int = 70 },
+            .{ .cff_int = 80 },
+            .{ .unt8 = operator.CURVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 C 40 60 90 120 160 200 Z ",
+        rect(10, 20, 160, 200),
+    );
 }
 
 test "curve_to_with_two_sets_of_coords" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .cff_int = 50 },
-        .{ .cff_int = 60 },
-        .{ .cff_int = 70 },
-        .{ .cff_int = 80 },
-        .{ .cff_int = 90 },
-        .{ .cff_int = 100 },
-        .{ .cff_int = 110 },
-        .{ .cff_int = 120 },
-        .{ .cff_int = 130 },
-        .{ .cff_int = 140 },
-        .{ .unt8 = operator.CURVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 C 40 60 90 120 160 200 C 250 300 360 420 490 560 Z ", rect(10, 20, 490, 560));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .cff_int = 50 },
+            .{ .cff_int = 60 },
+            .{ .cff_int = 70 },
+            .{ .cff_int = 80 },
+            .{ .cff_int = 90 },
+            .{ .cff_int = 100 },
+            .{ .cff_int = 110 },
+            .{ .cff_int = 120 },
+            .{ .cff_int = 130 },
+            .{ .cff_int = 140 },
+            .{ .unt8 = operator.CURVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 C 40 60 90 120 160 200 C 250 300 360 420 490 560 Z ",
+        rect(10, 20, 490, 560),
+    );
 }
 
 test "hh_curve_to" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .cff_int = 50 },
-        .{ .cff_int = 60 },
-        .{ .unt8 = operator.HH_CURVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 C 40 20 80 70 140 70 Z ", rect(10, 20, 140, 70));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .cff_int = 50 },
+            .{ .cff_int = 60 },
+            .{ .unt8 = operator.HH_CURVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 C 40 20 80 70 140 70 Z ",
+        rect(10, 20, 140, 70),
+    );
 }
 
 test "hh_curve_to_with_y" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .cff_int = 50 },
-        .{ .cff_int = 60 },
-        .{ .cff_int = 70 },
-        .{ .unt8 = operator.HH_CURVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 C 50 50 100 110 170 110 Z ", rect(10, 20, 170, 110));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .cff_int = 50 },
+            .{ .cff_int = 60 },
+            .{ .cff_int = 70 },
+            .{ .unt8 = operator.HH_CURVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 C 50 50 100 110 170 110 Z ",
+        rect(10, 20, 170, 110),
+    );
 }
 
 test "vv_curve_to" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .cff_int = 50 },
-        .{ .cff_int = 60 },
-        .{ .unt8 = operator.VV_CURVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 C 10 50 50 100 50 160 Z ", rect(10, 20, 50, 160));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .cff_int = 50 },
+            .{ .cff_int = 60 },
+            .{ .unt8 = operator.VV_CURVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 C 10 50 50 100 50 160 Z ",
+        rect(10, 20, 50, 160),
+    );
 }
 
 test "vv_curve_to_with_x" {
-    try test_cs(&.{
-        .{ .cff_int = 10 },
-        .{ .cff_int = 20 },
-        .{ .unt8 = operator.MOVE_TO },
-        .{ .cff_int = 30 },
-        .{ .cff_int = 40 },
-        .{ .cff_int = 50 },
-        .{ .cff_int = 60 },
-        .{ .cff_int = 70 },
-        .{ .unt8 = operator.VV_CURVE_TO },
-        .{ .unt8 = operator.ENDCHAR },
-    }, "M 10 20 C 40 60 90 120 90 190 Z ", rect(10, 20, 90, 190));
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .cff_int = 50 },
+            .{ .cff_int = 60 },
+            .{ .cff_int = 70 },
+            .{ .unt8 = operator.VV_CURVE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 C 40 60 90 120 90 190 Z ",
+        rect(10, 20, 90, 190),
+    );
 }
 
 test "only_endchar" {
