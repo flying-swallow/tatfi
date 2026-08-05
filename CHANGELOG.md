@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Fixed `VariationAxis.name_id` from using `u16` to `NameId` to be more concsitent with the rest of the library.
 - Patched font not being outlined if it has 65563 glyphs: https://github.com/harfbuzz/ttf-parser/issues/213#issuecomment-4629493102
 - Ignore the deprecated dotsection operator in CFF charstrings: https://github.com/harfbuzz/ttf-parser/pull/228
+- Fixed off by one error in `set_variation`. Now you can use up to 64 variation axis in your fonts instead of 63.
 - Fixed typo in `head` table `units_per_em` boundary.
 
 ## 0.1.3 - 2026-04-16

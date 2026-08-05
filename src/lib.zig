@@ -1334,7 +1334,7 @@ pub const Face = struct {
         if (!cfg.variable_fonts) @compileError("set_variation needs variable_fonts enabled");
 
         if (!self.is_variable()) return error.FontNotVariable;
-        if ((self.variation_axes().len()) >= MAX_VAR_COORDS) return error.FontTooVariable;
+        if ((self.variation_axes().len()) > MAX_VAR_COORDS) return error.FontTooVariable;
 
         var failure = true;
         var iter = self.variation_axes().iterator();
