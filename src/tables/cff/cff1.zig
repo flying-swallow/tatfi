@@ -616,6 +616,7 @@ const CharStringOperator = enum(u8) {
 };
 
 const FlexOperator = enum(u8) {
+    dotsection = 0,
     hflex = 34,
     flex = 35,
     hflex1 = 36,
@@ -708,6 +709,7 @@ fn parse_char_string_recursive(
                 // flex
                 const op2 = s.read(FlexOperator) catch return error.ReadOutOfBounds;
                 switch (op2) {
+                    .dotsection => {}, // deprecated. noop.
                     .hflex => try p.parse_hflex(),
                     .flex => try p.parse_flex(),
                     .hflex1 => try p.parse_hflex1(),

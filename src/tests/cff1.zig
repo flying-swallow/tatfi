@@ -401,6 +401,48 @@ test "global_subr" {
     );
 }
 
+// `dotsection` (12 0) is a deprecated hinting operator that Adobe's
+// Type 1 to Type 2 conversion preserves on dot-bearing glyphs (i, j, !).
+// It takes no arguments and must be skipped, not rejected, otherwise
+// such glyphs lose their outlines entirely.
+test "dotsection_is_ignored" {
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .unt8 = 12 },
+            .{ .unt8 = 0 }, // dotsection
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .unt8 = operator.LINE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 L 40 60 Z ",
+        rect(10, 20, 40, 60),
+    );
+}
+
+// `dotsection` is a pure no-op like in read-fonts and FreeType: operands
+// already on the argument stack must survive it untouched.
+test "dotsection_preserves_stack" {
+    try test_cs(
+        &.{
+            .{ .cff_int = 10 },
+            .{ .cff_int = 20 },
+            .{ .unt8 = operator.MOVE_TO },
+            .{ .cff_int = 30 },
+            .{ .cff_int = 40 },
+            .{ .unt8 = 12 },
+            .{ .unt8 = 0 }, // dotsection
+            .{ .unt8 = operator.LINE_TO },
+            .{ .unt8 = operator.ENDCHAR },
+        },
+        "M 10 20 L 40 60 Z ",
+        rect(10, 20, 40, 60),
+    );
+}
+
 test "reserved_operator" {
     try test_cs_err(&.{
         .{ .cff_int = 10 },
