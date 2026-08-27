@@ -81,8 +81,9 @@ pub fn phantom_points(
 ) ?lib.PhantomPoints {
     const outline_points = glyf_table.outline_points(glyph_id);
 
-    var fba_state = std.heap.stackFallback(VariationTuples.STACK_ALLOCATION_SIZE, gpa);
-    const fba = fba_state.get();
+    var stack_buf: [VariationTuples.STACK_ALLOCATION_SIZE]u8 = undefined;
+    var fba_state = std.heap.BufferFirstAllocator.init(&stack_buf, gpa);
+    const fba = fba_state.allocator();
 
     var tuples = VariationTuples.init(fba) catch return null;
     defer tuples.deinit();
@@ -1438,8 +1439,9 @@ fn outline_var_impl(
     // Instead, we have to manually calculate outline's bbox.
     s.advance(8);
 
-    var fba_state = std.heap.stackFallback(VariationTuples.STACK_ALLOCATION_SIZE, gpa);
-    const fba = fba_state.get();
+    var stack_buf: [VariationTuples.STACK_ALLOCATION_SIZE]u8 = undefined;
+    var fba_state = std.heap.BufferFirstAllocator.init(&stack_buf, gpa);
+    const fba = fba_state.allocator();
 
     var tuples = VariationTuples.init(fba) catch return error.ParseFail;
     defer tuples.deinit();
